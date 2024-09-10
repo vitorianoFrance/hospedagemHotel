@@ -15,16 +15,13 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (hospedes.Count <= Suite.Capacidade) //utilizando o .count para "contar" a quantidade de hospedes e o .Capacidade para ver quantas suites estão disponíveis, para assim efetuar a verificar atráves do IF
             {
                 Hospedes = hospedes;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new ArgumentException("O número de hóspedes é maior que a capacidade dos quartos."); //Exception apenas para retornar o erro e a causa do mesmo, caso estoure a capacidade de suítes
             }
         }
 
@@ -35,23 +32,27 @@ namespace DesafioProjetoHospedagem.Models
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            int id_hospede = 1;
+            int quantidadeHospedes = Hospedes.Count;
+            foreach( Pessoa hospedes in Hospedes)
+            {
+                Console.WriteLine(" ");
+                Console.WriteLine($"O hospede N° {id_hospede} é {hospedes.NomeCompleto}.");
+
+                id_hospede ++;
+            }
+
+            return quantidadeHospedes;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            decimal valor = DiasReservados * Suite.ValorDiaria; //Calculo para saber o valor da diária
+            decimal valorDesconto = valor - 0.9m;               //Calculo desconto diária, para o IF linha 56
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (DiasReservados >= 10) //validação da quantidade de dias para desconto, se for maior que 10 dias, recebe 10% de desconto
             {
-                valor = 0;
+                valor = valorDesconto;
             }
 
             return valor;
